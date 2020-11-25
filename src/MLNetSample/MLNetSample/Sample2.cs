@@ -12,7 +12,7 @@ namespace MLNetSample
             MLContext ctx = new MLContext(42);
 
             // Reading from files.
-            IDataView view = ctx.Data.LoadFromTextFile<Input>("taxi-fare-train.csv", separatorChar: ',', hasHeader: true);
+            IDataView view = ctx.Data.LoadFromTextFile<Input>("files/taxi-fare-train.csv", separatorChar: ',', hasHeader: true);
 
             List<Input> list = new List<Input>()
             {
