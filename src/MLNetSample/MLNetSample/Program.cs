@@ -12,7 +12,9 @@ namespace MLNetSample
             Console.WriteLine("Hello ML.NET. Step by step.");
 
             Sample1.Run();
-            
+
+            Sample2.Run();
+
         }
 
 
