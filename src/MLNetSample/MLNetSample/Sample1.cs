@@ -17,7 +17,7 @@ namespace MLNetSample
         public static void Run()
         {
             MLContext ctx = new MLContext(42);
-          
+
             IDataView view = ctx.Data.LoadFromTextFile<Input1>("files/sample1.csv", separatorChar: ',', hasHeader: true);
 
             var previewData = view.Preview(10);

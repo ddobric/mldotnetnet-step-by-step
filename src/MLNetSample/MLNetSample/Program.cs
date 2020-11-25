@@ -2,6 +2,8 @@
 using Microsoft.ML.Data;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
+using System.Text;
 
 namespace MLNetSample
 {
@@ -16,6 +18,8 @@ namespace MLNetSample
             Sample2.Run();
 
             Sample3.Run();
+
+            Sample4.Run();
         }
 
 
@@ -46,6 +50,18 @@ namespace MLNetSample
 
                 Console.WriteLine(lineToPrint + "\n");
             }
+        }
+
+        public static string StringifyDenseVector(VBuffer<Single> vector)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var val in vector.GetValues())
+            {
+                sb.Append(val);
+            }
+
+            return sb.ToString();
         }
     }
 }

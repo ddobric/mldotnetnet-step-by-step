@@ -12,22 +12,36 @@ namespace MLNetSample
         /// <summary>
         /// Data transformations
         /// https://docs.microsoft.com/en-us/dotnet/machine-learning/resources/transforms
+        /// Featurization
+        /// https://dotnet.microsoft.com/learn/ml-dotnet/what-is-mldotnet
         /// </summary>
         public static void Run()
         {
             MLContext ctx = new MLContext(42);
 
-            IDataView view = ctx.Data.LoadFromTextFile<Row>("files/sample3.csv", separatorChar: ',', hasHeader: true);
+            IDataView originalDataView = ctx.Data.LoadFromTextFile<Row>("files/sample3.csv", separatorChar: ',', hasHeader: true);
 
-            var pipeline = ctx.Transforms.Concatenate("AllFeaturesInOne", "Education", "MaritalStatus");
+            var concatPipeline = ctx.Transforms.Concatenate("AllFeaturesInOne", "Education", "MaritalStatus");
 
-            var concatView = pipeline.Fit(view).Transform(view);
+            var concatView = concatPipeline.Fit(originalDataView).Transform(originalDataView);
 
-            var originalData = ctx.Data.CreateEnumerable<RowWithAllFeatures>(concatView, reuseRowObject:false);
+            var concatEnumData = ctx.Data.CreateEnumerable<RowWithAllFeatures>(concatView, reuseRowObject:false);
 
-            foreach (var item in originalData)
+            foreach (var item in concatEnumData)
             {
                 Console.WriteLine($"{String.Join(",", item.AllFeaturesInOne)}], {item.Education}, {item.MaritalStatus}");
+            }
+
+
+            IEstimator<ITransformer> featurizedPipeline = ctx.Transforms.Text.FeaturizeText("Features", "AllFeaturesInOne");
+
+            var featurizedView = featurizedPipeline.Fit(concatView).Transform(concatView);
+
+            var featurizedEnumData = ctx.Data.CreateEnumerable<FactorizedRow>(featurizedView, reuseRowObject: false);
+
+            foreach (var item in featurizedEnumData)
+            {
+                Console.WriteLine($"{String.Join(",", item.AllFeaturesInOne)}], {item.Education}, {item.MaritalStatus}, {Program.StringifyDenseVector(item.Features)}");
             }
         }
 
@@ -47,6 +61,11 @@ namespace MLNetSample
         private class RowWithAllFeatures : Row
         {
             public string[] AllFeaturesInOne { get; set; }
+        }
+
+        private class FactorizedRow : RowWithAllFeatures
+        {
+            public VBuffer<Single> Features { get; set; }
         }
 
     }
