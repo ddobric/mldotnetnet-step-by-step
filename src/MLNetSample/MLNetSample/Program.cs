@@ -15,6 +15,7 @@ namespace MLNetSample
 
             Sample2.Run();
 
+            Sample3.Run();
         }
 
 
