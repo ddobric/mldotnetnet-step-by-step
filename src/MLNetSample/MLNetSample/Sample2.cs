@@ -14,16 +14,24 @@ namespace MLNetSample
             // Reading from files.
             IDataView view = ctx.Data.LoadFromTextFile<Input>("files/taxi-fare-train.csv", separatorChar: ',', hasHeader: true);
 
+            var previewData = view.Preview(10);
+
+            Program.PrintPreviewData(previewData);
+
             List<Input> list = new List<Input>()
             {
-                new Input(){ Amount = 7.1, PassangerCount = 2, RateCode = 1, TripDistance = 19, TripTime = 16, VendorId = 1,  },
-                new Input(){ Amount = 7.1, PassangerCount = 2, RateCode = 1, TripDistance = 19, TripTime = 16, VendorId = 1,  },
-                new Input(){ Amount = 7.1, PassangerCount = 2, RateCode = 1, TripDistance = 19, TripTime = 16, VendorId = 1,  },
-                new Input(){ Amount = 7.1, PassangerCount = 2, RateCode = 1, TripDistance = 19, TripTime = 16, VendorId = 1,  },
-                new Input(){ Amount = 7.1, PassangerCount = 2, RateCode = 1, TripDistance = 19, TripTime = 16, VendorId = 1,  },
+                new Input(){ Amount = 7.1, PassangerCount = 2, RateCode = 1, TripDistance = 19, TripTime = 16, VendorId = "1",  },
+                new Input(){ Amount = 7.1, PassangerCount = 2, RateCode = 1, TripDistance = 19, TripTime = 16, VendorId = "1",  },
+                new Input(){ Amount = 7.1, PassangerCount = 2, RateCode = 1, TripDistance = 19, TripTime = 16, VendorId = "1",  },
+                new Input(){ Amount = 7.1, PassangerCount = 2, RateCode = 1, TripDistance = 19, TripTime = 16, VendorId = "2",  },
+                new Input(){ Amount = 7.1, PassangerCount = 2, RateCode = 1, TripDistance = 19, TripTime = 16, VendorId = "2",  },
             };
 
             IDataView view2 = ctx.Data.LoadFromEnumerable<Input>(list);
+
+            previewData = view.Preview(10);
+
+            Program.PrintPreviewData(previewData);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace MLNetSample
             foreach (var row in previewData.RowView)
             {
                 var ColumnCollection = row.Values;
-                string lineToPrint = "Row--> ";
+                string lineToPrint = ">";
                 foreach (KeyValuePair<string, object> column in ColumnCollection)
                 {
                     if (column.Value is VBuffer<Single>)

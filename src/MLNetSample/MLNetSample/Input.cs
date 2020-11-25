@@ -11,7 +11,7 @@ namespace MLNetSample
     public class Input
     {
         [LoadColumn(0)]
-        public int VendorId { get; set; }
+        public string VendorId { get; set; }
 
         [LoadColumn(1)]
         public int RateCode { get; set; }
@@ -26,7 +26,7 @@ namespace MLNetSample
         public double TripDistance{ get; set; }
 
         [LoadColumn(5)]
-        public int PaymentType { get; set; }
+        public string PaymentType { get; set; }
 
         [LoadColumn(6)]
         public double Amount{ get; set; }
